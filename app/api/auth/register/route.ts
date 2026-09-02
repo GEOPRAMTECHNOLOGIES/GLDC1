@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
 import crypto from "node:crypto";
 import { z } from "zod";
-import { getDb } from "../../../../lib/db";
-import { env } from "../../../../lib/env";
-import { hashPassword } from "../../../../lib/auth";
-import { sendVerificationEmail } from "../../../../lib/email"; import { encrypt } from "../../../../lib/crypto";
+import { getDb } from "@/lib/db";
+import { env } from "@/lib/env";
+import { hashPassword } from "@/lib/auth";
+import { sendVerificationEmail } from "@/lib/email"; import { encrypt } from "@/lib/crypto";
 const schema=z.object({
  firstName:z.string().min(2),lastName:z.string().min(2),email:z.string().email(),phone:z.string().min(9),alternatePhone:z.string().optional(),dateOfBirth:z.string().optional(),nationality:z.string().min(2),idType:z.enum(["national_id","passport","alien_card","other"]),idNumber:z.string().min(3),gender:z.string().optional(),address:z.string().min(3),county:z.string().min(2),town:z.string().min(2),postalCode:z.string().optional(),occupation:z.string().min(2),organization:z.string().optional(),memberType:z.enum(["individual","professional","corporate"]).default("individual"),password:z.string().min(env.PASSWORD_MIN_LENGTH),
 });
